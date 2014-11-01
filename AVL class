@@ -60,6 +60,18 @@ class node
 
     public:
     TEMPLATE data;
+    
+    //Constructor
+    node <TEMPLATE> (TEMPLATE x, int cnt)
+    {
+        data = x;
+        count = cnt;
+        balance = 0;
+        maxdepth = 0;
+        subtree = 1;
+        left = NULL;
+        right = NULL;
+    }
 
     friend class AVL<TEMPLATE>;
 };
@@ -191,19 +203,20 @@ class AVL
 
      public:
 
-     void insert (TEMPLATE x)
+     void insert (TEMPLATE x)   // inserts one object of value x
      {
-         current = new node<TEMPLATE>;
-         current->data = x;
-         current->left = NULL;
-         current->right = NULL;
-         current->balance = 0;
-         current->maxdepth = 0;
-         current->subtree = 1;
-         current->count = 1;
+         current = new node<TEMPLATE> (x,1);
 
          root = insert(root);
          ++nr_objects;
+     }
+
+     void insert (TEMPLATE x, int nr)  // inserts nr objects of value x
+     {
+         current = new node<TEMPLATE> (x,nr);
+
+         root = insert (root);
+         nr_objects += nr;
      }
 
      //SEARCH
